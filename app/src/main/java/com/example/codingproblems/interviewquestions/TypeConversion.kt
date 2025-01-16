@@ -11,15 +11,21 @@ fun main(args: Array<String>){
 
     val s1 = "earth"
     val s2 = "HEART"
+    if (s1.replace(" ", "").lowercase().length !=
+        s2.replace(" ", "").lowercase().length) {
+        print("not anagram")
+        return
+    }else{
+        val s1CharArray = s1.replace(" ", "").lowercase().toCharArray()
+        val s2CharArray = s2.replace(" ", "").lowercase().toCharArray()
 
-    val s1CharArray = s1.lowercase().toCharArray()
-    val s2CharArray = s2.lowercase().toCharArray()
+        s1CharArray.sort()
+        s2CharArray.sort()
 
-    s1CharArray.sort()
-    s2CharArray.sort()
+        if(s1CharArray.contentEquals(s2CharArray))
+            print("anagram")
+        else
+            println("not anagram")
+    }
 
-    if(s1CharArray.contentEquals(s2CharArray))
-        print("anagram")
-    else
-        println("not")
 }

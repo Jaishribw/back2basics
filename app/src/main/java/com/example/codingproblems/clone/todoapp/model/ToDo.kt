@@ -1,5 +1,7 @@
 package com.example.codingproblems.clone.todoapp.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.time.Instant
 import java.util.Date
 
@@ -10,6 +12,7 @@ data class ToDo(
 )
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun getFakeToDo() : List<ToDo> {
     return listOf<ToDo>(
         ToDo(1, "First", Date.from(Instant.now())),

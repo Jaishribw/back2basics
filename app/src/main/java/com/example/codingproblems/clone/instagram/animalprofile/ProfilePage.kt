@@ -1,12 +1,12 @@
 package com.example.codingproblems.clone.instagram.animalprofile
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -50,10 +50,12 @@ fun ProfilePage(){
             )
         ){
         BoxWithConstraints (Modifier.verticalScroll(rememberScrollState())){
-            val constraints = if(minWidth < 900.dp){
+            val constraints = if(minWidth < 400.dp){
+                Log.d("You : ", "LandScapeConstraint")
                 PortraitConstraint(margin = 16.dp)
             } else {
-                LandScapeConstraint(margin = 16.dp)
+                PortraitConstraint(margin = 16.dp)
+//                Log.d("You : ", "PortraitConstraint")
             }
             ConstraintLayout (constraints){
 
@@ -382,6 +384,6 @@ fun LandScapeConstraint(margin: Dp): ConstraintSet{
 @Composable
 @Preview
 fun PreviewProfile(){
-    ProfilePageUsingColumn()
-//    ProfilePage()
+//    ProfilePageUsingColumn()
+    ProfilePage()
 }

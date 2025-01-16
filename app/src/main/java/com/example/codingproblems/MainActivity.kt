@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -43,24 +44,90 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.example.codingproblems.clone.gmail.bottomnavbar.BottomNavigationBar
 import com.example.codingproblems.clone.gmail.HomeAppBar
 import com.example.codingproblems.clone.gmail.drawer.DrawerItem
+import com.example.codingproblems.clone.instagram.animalprofile.ProfilePage
+import com.example.codingproblems.clone.instagram.animalprofile.ProfilePageNoRotation
 import com.example.codingproblems.clone.instagram.animalprofile.ProfilePageUsingColumn
 import com.example.codingproblems.ui.theme.CodingProblemsTheme
 import com.example.codingproblems.utils.UtilClass.Companion.WEBVIEW_URL
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.codingproblems.clone.todoapp.Greeting
+import com.example.codingproblems.ui.theme.SplashAPITheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        /*setContent {
             CodingProblemsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    GmailApp()
-                    //ProfilePageUsingColumn()
+//                    GmailApp()
+//                    ProfilePageUsingColumn()
+//                    AddWebView()
+                    ProfilePage()
+                }
+            }
+        }*/
+        val isFirstTime = savedInstanceState == null
+
+        if(isFirstTime){
+            val splashScreen = installSplashScreen()
+            splashScreen.setOnExitAnimationListener{
+                    splashScreenViewProvider ->
+                splashScreenViewProvider.iconView.animate()
+                    .alpha(0f)
+                    .setDuration(12000L)
+                    .withEndAction{
+                        splashScreenViewProvider.remove()
+                        setContent {
+                            SplashAPITheme {
+                                /*Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                                    Greeting(
+//                                        name = "Android",
+//                                        modifier = Modifier.padding(innerPadding)
+//                                    )
+
+                                    ProfilePage()
+                                }*/
+
+                                Surface(
+                                    modifier = Modifier.fillMaxSize(),
+                                    color = MaterialTheme.colorScheme.background,
+                                            ) {
+                        //                    GmailApp()
+                                            ProfilePageUsingColumn()
+                        //                    AddWebView()
+//                                            ProfilePage()
+                                }
+                            }
+                        }
+                    }.start()
+            }
+            splashScreen.setKeepOnScreenCondition{
+                false
+            }
+
+        } else{
+            setContent {
+                SplashAPITheme {
+//                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                        Greeting(
+//                            name = "Android",
+//                            modifier = Modifier.padding(innerPadding)
+//                        )
+//                    }
+
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background,
+                    ) {
+//                    GmailApp()
+                    ProfilePageUsingColumn()
 //                    AddWebView()
 //                    ProfilePage()
+                    }
                 }
             }
         }
@@ -102,7 +169,8 @@ class MainActivity : ComponentActivity() {
     @Composable
     @Preview(showBackground = true)
     fun ShowInstarPreview(){
-        ProfilePageUsingColumn()
+        ProfilePageNoRotation()
+//        ProfilePage()
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
